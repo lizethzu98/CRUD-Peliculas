@@ -24,7 +24,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light encabezado">
-            <a class="navbar-brand" href="#">Inicio</a>
+            <a class="navbar-brand menu" href="#">Inicio</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -33,13 +33,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Peliculas <span class="sr-only">(current)</span></a>
+                        <a class="nav-link menu" href="#">Peliculas <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Series</a>
+                        <a class="nav-link menu" href="#">Series</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        <a class="nav-link dropdown-toggle menu" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Género
                         </a>
@@ -57,7 +57,7 @@
 
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Buscar...">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
             </form>
         </nav>
@@ -65,7 +65,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col col-md-auto">
+            <div class="col col-md-3">
 
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
@@ -154,20 +154,58 @@
 
             </div>
             <div class="col-md-9">
-                <div id="Formulario">
-                    <div class="botones">
-                        <ol>
-                            <li>Nombre de la Pelicula</li>
-                            <li>Comentario</li>
-                            <li>Calificación</li>
-                        </ol>
+
+                <div class="jumbotron jumbotron-fluid titulo-jumbo">
+                    <div class="container ">
+                        <h1 class="display-4">Peliculas y Series</h1>
+                        <p class="lead">En esta pagína puedes dejar tus opiniones y comentarios acerca de cualquier
+                            pelicula o serie que hayas visto.</p>
+                    </div>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Usuario</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Nombre de usuario.">
 
                     </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Pelicula</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Escribe el nombre de la pelicula.">
 
-                </div>
-                2 of 3
+                    </div>
+                 
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Comentario</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1"
+                            placeholder="Escribe lo que piensas.">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Calificación</label>
+                        <p class="clasificacion">
+                            <input id="radio1" type="radio" name="estrellas" value="5"><!--
+                            --><label class="estrella" for="radio1">★</label><!--
+                            --><input id="radio2" type="radio" name="estrellas" value="4"><!--
+                            --><label class="estrella" for="radio2">★</label><!--
+                            --><input id="radio3" type="radio" name="estrellas" value="3"><!--
+                            --><label class="estrella" for="radio3">★</label><!--
+                            --><input id="radio4" type="radio" name="estrellas" value="2"><!--
+                            --><label class="estrella" for="radio4">★</label><!--
+                            --><input id="radio5" type="radio" name="estrellas" value="1"><!--
+                            --><label class="estrella" for="radio5">★</label>
+                          </p>
+
+                    </div>
+                    <button type="submit" class="btn btn-primary">Comentar</button>
+                </form>
+
             </div>
+
         </div>
+
+    </div>
+    </div>
     </div>
 
 
