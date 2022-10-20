@@ -1,4 +1,25 @@
+
 .img-carrusel{
     max-width: 480px !important;
     max-height: 715px !important;
+}
+.menu {
+    background: transparent;
+    font-style: #fff;
+}
+
+.encabezado {
+    position: sticky;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(92,9,121,1) 35%, rgba(0,212,255,1) 100%);
+}
+
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: 0px;
+ 
+   
 }
