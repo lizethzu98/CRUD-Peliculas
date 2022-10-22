@@ -163,66 +163,64 @@
                     </div>
                 </div>
                 <form>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Usuario</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    <div class="form-group" id="divUsuario">
+                        <label for="cmbNomUsuario">Usuario<span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" id="cmbNomUsuario" aria-describedby="emailHelp"
                             placeholder="Nombre de usuario.">
-
                     </div>
-                    <div class="form-group">
-                        <label for="inputState">Peliculas</label>
-                        <select id="inputState" class="form-control">
-                            <option selected>Elige una opcion...</option>
-                            <option>El barbero demoniaco de la calle fleet</option>
-                            <option>El cadaver de la novia</option>
-                            <option>Avatar</option>
-                            <option>Black Adam</option>
-                            <option>Buscando a nemo</option>
-                            <option>Coraline y la puerta secreta</option>
-                            <option>Ligthyear</option>
-                            <option>Unidos</option>
-                            <option>Black Swan</option>
-                            <option>Harry Potter</option>
-                            <option>Godzilla</option>
-                            <option>Godzilla vs Kong</option>
-                            <option>Parasite</option>
-                            <option>Fight Club</option>
-                            <option>Shang-Chi</option>
-
+                    <div class="form-group" id="divPeliculas">
+                        <label for="selectPeliculas">Peliculas<span style="color: red;">*</span></label>
+                        <select id="selectPeliculas" class="form-control">
+                            <option value="0" selected>Elige una opcion...</option>
+                            <option value="1">El barbero demoniaco de la calle fleet</option>
+                            <option value="2">El cadaver de la novia</option>
+                            <option value="3">Avatar</option>
+                            <option value="4">Black Adam</option>
+                            <option value="5">Buscando a nemo</option>
+                            <option value="6">Coraline y la puerta secreta</option>
+                            <option value="7">Ligthyear</option>
+                            <option value="8">Unidos</option>
+                            <option value="9">Black Swan</option>
+                            <option value="10">Harry Potter</option>
+                            <option value="11">Godzilla</option>
+                            <option value="12">Godzilla vs Kong</option>
+                            <option value="13">Parasite</option>
+                            <option value="14">Fight Club</option>
+                            <option value="15">Shang-Chi</option>
                         </select>
                     </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Comentario</label>
-                        <textarea  class="form-control" id="exampleInputPassword1"
+                    <div class="form-group" id="divComentarios">
+                        <label for="cmbComentario">Comentario<span style="color: red;">*</span></label>
+                        <textarea class="form-control" id="cmbComentario"
                             placeholder="Escribe lo que piensas."></textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Calificación</label>
+                    <div class="form-group" id="divCalificacion">
+                        <label for="exampleInputEmail1">Calificación<span style="color: red;">*</span></label>
+                        
                         <p class="clasificacion">
-                            <input id="radio1" type="radio" name="estrellas" value="5">
+                            <input id="calValUno" type="radio" name="estrellas" value="5">
                             <!--
-                            --><label class="estrella" for="radio1">★</label>
+                            --><label class="estrella" for="calValUno">★</label>
                             <!--
-                            --><input id="radio2" type="radio" name="estrellas" value="4">
+                            --><input id="calValDos" type="radio" name="estrellas" value="4">
                             <!--
-                            --><label class="estrella" for="radio2">★</label>
+                            --><label class="estrella" for="calValDos">★</label>
                             <!--
-                            --><input id="radio3" type="radio" name="estrellas" value="3">
+                            --><input id="calValTres" type="radio" name="estrellas" value="3">
                             <!--
-                            --><label class="estrella" for="radio3">★</label>
+                            --><label class="estrella" for="calValTres">★</label>
                             <!--
-                            --><input id="radio4" type="radio" name="estrellas" value="2">
+                            --><input id="calValCuatro" type="radio" name="estrellas" value="2">
                             <!--
-                            --><label class="estrella" for="radio4">★</label>
+                            --><label class="estrella" for="calValCuatro">★</label>
                             <!--
-                            --><input id="radio5" type="radio" name="estrellas" value="1">
+                            --><input id="calValCinco" type="radio" name="estrellas" value="1">
                             <!--
-                            --><label class="estrella" for="radio5">★</label>
+                            --><label class="estrella" for="calValCinco">★</label>
                         </p>
 
                     </div>
-                    <button type="submit" class="btn btn-primary">Comentar</button>
+                    <input type='button' onclick="validaCampos();" class="btn btn-primary" value="Comentar" />
                 </form>
 
             </div>
@@ -249,7 +247,7 @@
 
     </footer>
 
-
+    <script src="/js/funciones.js"></script>
 </body>
 
 </html>
