@@ -32,6 +32,10 @@
 .estrella { 
     color:grey;
 }
+.estrellacoment{
+    color: orange;
+}
+
 input[type = "radio"]{ 
     display:none;
 }
