@@ -1,3 +1,18 @@
+document.body.onload = function () {
+    document.getElementById("cmbNomUsuario").value = "lizeth";
+    document.getElementById("selectPeliculas").value = "6";
+    document.getElementById("cmbComentario").value = "comentario";
+    var arRadioBtn = document.getElementsByName("estrellas");
+
+    for (var ii = 0; ii < arRadioBtn.length; ii++) {
+        var radButton = arRadioBtn[ii];
+        radButton.checked = true;
+    }
+}
+
+//id de comentario
+var idComentario = 0;
+
 function validaCampos() {
     var usuario = document.getElementById("cmbNomUsuario").value;
     var pelicula = document.getElementById("selectPeliculas").value;
@@ -102,6 +117,8 @@ function validaCampos() {
         if (divNoComentario != null) {
             divNoComentario.remove();
         }
+
+        //comentarios
         imprimirComentario();
 
         document.getElementById("cmbNomUsuario").value = "";
@@ -153,7 +170,7 @@ function imprimirComentario() {
     }
 
 
-    
+    idComentario = idComentario + 1;
 
     var coment = document.getElementById("accordion");
 
@@ -170,14 +187,50 @@ function imprimirComentario() {
         "<a  class='list-group-item list-group-item-action flex-column align-items-start'>" +
         "<div class='d-flex w-100 justify-content-between'>" +
         "<h5 class='mb-1'>" + usuario + "</h5>" +
-        "<small>3 days ago</small>" +
+        "<div class= 'justify-content-end'>" +
+        "<button type='button' onclick='editarComentario("+idComentario+")' class='btn btn-warning'>Editar</button>" + +"" +
+        "<button type='button' class='btn btn-danger'>Eliminar</button>" +
+        "  </div> " +
         "</div>" +
         "<p class='mb-1'>" + comentario + "</p>" +
         "<small><label class='estrellacoment' >" + estrellas + "</label></small>" +
+        "<div id='comentario"+idComentario+"'></div>" +
         "</a>" +
         "</div>" +
+
         "</div>" +
         "</div>" +
         "</div>";
+}
+
+
+
+function editarComentario(nuComentario) {
+    var usuario = document.getElementById("cmbNomUsuario").value;
+    var pelicula = document.getElementById("selectPeliculas");
+    var peliculaTexto = pelicula.options[pelicula.selectedIndex].text;
+    var comentario = document.getElementById("cmbComentario").value;
+    let calificacion = $('input[name="estrellas"]:checked').val();
+
+
+
+    var edit = document.getElementById("comentario"+nuComentario);
+    edit.innerHTML = "<form>"+
+    "<div class='form-group'>"+
+      "<label for='exampleInputEmail1'>Email address</label>"+
+      "<input type='email' class='form-control' id='exampleInputEmail1' aria-describedby='emailHelp' placeholder='Enter email'>"+
+      "<sma'll id='emailHelp' class='form-text text-muted'>'We'll never share your email with anyone else.'</small>"+
+    "</div>"+
+    "<div class='form-group'>"+
+      "<label for='exampleInputPassword1'>Password</label>"+
+      "<input type='password' class='form-control' id='exampleInputPassword1' placeholder='Password'>"+
+    "</div>"+
+    "<div class='form-check'>"+
+      "<input type='checkbox' class='form-check-input' id='exampleCheck1'>"+
+      "<label class='form-check-label' for='exampleCheck1'>Check me out</label>"+
+    "</div>"+
+    "<button type='submit' class='btn btn-primary'>Submit</button>"+
+  "</form>";
+
 
 }
