@@ -1,7 +1,7 @@
 document.body.onload = function () {
     document.getElementById("cmbNomUsuario").value = "lizeth";
     document.getElementById("selectPeliculas").value = "6";
-    document.getElementById("cmbComentario").value = "comentario";
+    document.getElementById("cmbComentario").value = "esta chida";
     var arRadioBtn = document.getElementsByName("estrellas");
 
     for (var ii = 0; ii < arRadioBtn.length; ii++) {
@@ -188,16 +188,17 @@ function imprimirComentario() {
         "<div class='d-flex w-100 justify-content-between'>" +
         "<h5 class='mb-1'>" + usuario + "</h5>" +
         "<div class= 'justify-content-end'>" +
-        "<button type='button' onclick='editarComentario("+idComentario+")' class='btn btn-warning'>Editar</button>" + +"" +
+        "<button type='button' style='margin: 10px'onclick='editarComentario("+idComentario+")' class='btn btn-warning'>Editar</button>" + 
         "<button type='button' class='btn btn-danger'>Eliminar</button>" +
         "  </div> " +
         "</div>" +
+        "<div id='divTextoComentario"+idComentario+"'>"+
         "<p class='mb-1'>" + comentario + "</p>" +
         "<small><label class='estrellacoment' >" + estrellas + "</label></small>" +
+        "</div>"+
         "<div id='comentario"+idComentario+"'></div>" +
         "</a>" +
         "</div>" +
-
         "</div>" +
         "</div>" +
         "</div>";
@@ -213,24 +214,36 @@ function editarComentario(nuComentario) {
     let calificacion = $('input[name="estrellas"]:checked').val();
 
 
-
     var edit = document.getElementById("comentario"+nuComentario);
-    edit.innerHTML = "<form>"+
+    edit.innerHTML = 
+  "<form>"+
     "<div class='form-group'>"+
-      "<label for='exampleInputEmail1'>Email address</label>"+
-      "<input type='email' class='form-control' id='exampleInputEmail1' aria-describedby='emailHelp' placeholder='Enter email'>"+
-      "<sma'll id='emailHelp' class='form-text text-muted'>'We'll never share your email with anyone else.'</small>"+
+      "<label for='exampleInputEmail1'>Comentario</label>"+
+      "<input type='text' class='form-control' id='comentarioEdit'  placeholder='Escribe lo que piensas'>"+
+      "<label for='exampleInputEmail1'>Calificación<span style='color: red;'>*</span></label>"+
+
+      "<p class='clasificacion'>"+
+          "<input id='calValUnoEdit' type='radio' name='estrellasEdit' value='5'>"+
+          "<label class='estrella' for='calValUnoEdit'>★</label>"+
+          "<input id='calValDosEdit' type='radio' name='estrellasEdit' value='4'>"+
+          "<label class='estrella' for='calValDosEdit'>★</label>"+
+          "<input id='calValTresEdit' type='radio' name='estrellasEdit' value='3'>"+
+          "<label class='estrella' for='calValTresEdit'>★</label>"+
+          "<input id='calValCuatroEdit' type='radio' name='estrellasEdit' value='2'>"+
+          "<label class='estrella' for='alValCuatroEdit'>★</label>"+
+          "<input id='calValCincoEdit' type='radio' name='estrellasEdit' value='1'>"+
+          "<label class='estrella' for='calValCincoEdit'>★</label>"+
+      "</p>"+
     "</div>"+
-    "<div class='form-group'>"+
-      "<label for='exampleInputPassword1'>Password</label>"+
-      "<input type='password' class='form-control' id='exampleInputPassword1' placeholder='Password'>"+
-    "</div>"+
-    "<div class='form-check'>"+
-      "<input type='checkbox' class='form-check-input' id='exampleCheck1'>"+
-      "<label class='form-check-label' for='exampleCheck1'>Check me out</label>"+
-    "</div>"+
-    "<button type='submit' class='btn btn-primary'>Submit</button>"+
+    "<button type='submit' class='btn btn-primary'>Actualizar</button>"+
   "</form>";
+
+    var  divTextoComentario = document.getElementById("divTextoComentario"+nuComentario);
+    var textoComentarioEdit = divTextoComentario.getElementsByTagName("p")[0].innerHTML;
+    document.getElementById("comentarioEdit").value = textoComentarioEdit;
+
+    divTextoComentario.innerHTML="";
+  
 
 
 }
