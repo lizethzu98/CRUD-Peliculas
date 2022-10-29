@@ -4,29 +4,29 @@ var cmbComentario = document.getElementById("cmbComentario");
 var selectPeliculas = document.getElementById("selectPeliculas");
 var arRadioBtn = document.getElementsByName("estrellas");
 var idComentario = 0;
-localStorage.clear();
+//localStorage.clear();
 let listaComentario = JSON.parse(localStorage.getItem('LC'));
 
 document.body.onload = function () {
-    cmbNumUsuario.value = "lizeth";
-    selectPeliculas.value = "6";
-    cmbComentario.value = "esta chida";
-    var arRadioBtn = document.getElementsByName("estrellas");
-    
-    for (var ii = 0; ii < arRadioBtn.length; ii++) {
-        var radButton = arRadioBtn[ii];
-        radButton.checked = true;
-    }
+    // cmbNumUsuario.value = "lizeth";
+    // selectPeliculas.value = "6";
+    // cmbComentario.value = "esta chida";
+    // var arRadioBtn = document.getElementsByName("estrellas");
+
+    // for (var ii = 0; ii < arRadioBtn.length; ii++) {
+    //     var radButton = arRadioBtn[ii];
+    //    radButton.checked = true;
+    //  }
+    muestraTodosComentarios();
 }
-
-
-
 
 function validaCampos() {
     let usuario = cmbNumUsuario.value;
     let pelicula = selectPeliculas.value;
     let comentario = cmbComentario.value;
     let calificacion = $('input[name="estrellas"]:checked').val();
+    var peliculaTexto = selectPeliculas.options[selectPeliculas.selectedIndex].text;
+    listaComentario = JSON.parse(localStorage.getItem('LC'));
 
     //textosError
     var textosError = 0;
@@ -118,20 +118,9 @@ function validaCampos() {
     var formulario = document.getElementById("formulario");
     textosError = formulario.getElementsByClassName("texto-error").length;
     if (textosError <= 0) {
-        var divNoComentario = document.getElementById("noComentario");
-        if (divNoComentario != null) {
-            divNoComentario.remove();
-        }
 
-        if (listaComentario != null) {
-            idComentario = listaComentario.length + 1;
-        }
-        else {
-            idComentario = 1;
-        }
         //comentarios
-        guardarLocalStorage(usuario, pelicula, comentario, calificacion);
-
+        guardarLocalStorage(usuario, pelicula, comentario, calificacion, peliculaTexto);
         limpiarcampos();
 
     }
@@ -147,12 +136,21 @@ function limpiarcampos() {
         radButton.checked = false;
     }
 }
-function guardarLocalStorage(usuario, pelicula, comentario, calificacion) {
-    
+function guardarLocalStorage(usuario, idPelicula, comentario, calificacion, peliculaTexto) {
+    listaComentario = JSON.parse(localStorage.getItem('LC'));
+
+    if (listaComentario != null) {
+        idComentario = listaComentario.length + 1;
+    }
+    else {
+        idComentario = 1;
+    }
+
     let objectComentario = {
         idComentario: idComentario,
         usuario: usuario,
-        pelicula: pelicula,
+        idPelicula: idPelicula,
+        pelicula: peliculaTexto,
         comentario: comentario,
         calificacion: calificacion
     }
@@ -162,21 +160,28 @@ function guardarLocalStorage(usuario, pelicula, comentario, calificacion) {
         listaComentario = [];
         listaComentario.push(objectComentario);
         localStorage.setItem('LC', JSON.stringify(listaComentario));
-        console.log(JSON.stringify(listaComentario));
     }
     else {
         listaComentario.push(objectComentario);
         localStorage.setItem('LC', JSON.stringify(listaComentario));
-        console.log(JSON.stringify(listaComentario));
     }
-
-
+    imprimirComentario(idComentario);
 }
 
-
 //COMENTAR
-function imprimirComentario() {
-    var estrellas = "";
+function imprimirComentario(idComentario) {
+
+    var divNoComentario = document.getElementById("noComentario");
+    if (divNoComentario != null) {
+        divNoComentario.remove();
+    }
+
+    listaComentario = JSON.parse(localStorage.getItem('LC'));
+
+    let index = listaComentario.findIndex((element) => element.idComentario == idComentario);
+    let calificacion = listaComentario[index].calificacion;
+
+    let estrellas = "";
 
     switch (calificacion) {
         case '1':
@@ -184,59 +189,72 @@ function imprimirComentario() {
             break;
         case '2':
             estrellas = "★★";
-
             break;
-
         case '3':
             estrellas = "★★★";
-
             break;
         case '4':
             estrellas = "★★★★";
-
             break;
         case '5':
             estrellas = "★★★★★";
             break;
-
         default:
             break;
     }
 
-
-
     var coment = document.getElementById("accordion");
-
-    coment.innerHTML = "<div class='card'><div class='card-header' id='headingOne'>" +
-        "<h5 class='mb-0'>" +
-        "<button class='btn btn-link' data-toggle='collapse' data-target='#collapseOne' aria-expanded='true' aria-controls='collapseOne'>" +
-        peliculaTexto +
-        "</button>" +
-        "</h5>" +
-        "</div>" +
-        "<div id='collapseOne' class='collapse show' aria-labelledby='headingOne' data-parent='#accordion'>" +
-        "<div class='card-body'>" +
-        "<div class='list-group'>" +
-        "<a  class='list-group-item list-group-item-action flex-column align-items-start'>" +
-        "<div class='d-flex w-100 justify-content-between'>" +
-        "<h5 class='mb-1'>" + usuario + "</h5>" +
-        "<div class= 'justify-content-end'>" +
-        "<button type='button' style='margin: 10px'onclick='editarComentario(" + idComentario + ")' class='btn btn-warning'>Editar</button>" +
-        "<button type='button' class='btn btn-danger'>Eliminar</button>" +
-        "  </div> " +
-        "</div>" +
-        "<div  name='nameComentarios' id='divTextoComentario" + idComentario + "'>" +
-        "<p class='mb-1'>" + comentario + "</p>" +
-        "<small><label class='estrellacoment' >" + estrellas + "</label></small>" +
-        "</div>" +
-        "<div id='comentario" + idComentario + "'></div>" +
-        "</a>" +
-        "</div>" +
-        "</div>" +
-        "</div>" +
-        "</div>";
+    var divPelicula = document.getElementById("pelicula" + listaComentario[index].idPelicula);
+    if (divPelicula != null) {
+        var comentariosPelicula = document.getElementById("comentariosPelicula" + listaComentario[index].idPelicula).innerHTML;
+        comentariosPelicula = "<a  class='list-group-item list-group-item-action flex-column align-items-start'>" +
+            "<div class='d-flex w-100 justify-content-between'>" +
+            "<h5 class='mb-1'>" + listaComentario[index].usuario + "</h5>" +
+            "<div class= 'justify-content-end'>" +
+            "<input type='button' style='margin: 10px'onclick='editarComentario(" + listaComentario[index].idComentario + ")' class='btn btn-warning' value='Editar'></input>" +
+            "<input type='button' class='btn btn-danger' value='Eliminar' onclick='eliminaComentario(" + listaComentario[index].idComentario + ")'></input>" +
+            "</div> " +
+            "</div>" +
+            "<div  name='nameComentarios' id='divTextoComentario" + listaComentario[index].idComentario + "'>" +
+            "<p class='mb-1'>" + listaComentario[index].comentario + "</p>" +
+            "<small><label class='estrellacoment' >" + estrellas + "</label></small>" +
+            "</div>" +
+            "<div id='comentario" + listaComentario[index].idComentario + "'></div>" +
+            "</a>" + comentariosPelicula;
+        document.getElementById("comentariosPelicula" + listaComentario[index].idPelicula).innerHTML = comentariosPelicula;
+    } else {
+        divPelicula = document.createElement("div");
+        divPelicula.innerHTML = "<div class='card'><div class='card-header' id='headingOne'>" +
+            "<h5 class='mb-0'>" +
+            "<button class='btn btn-link' data-toggle='collapse' data-target='#collapseOne' aria-expanded='true' aria-controls='collapseOne' id='pelicula" + listaComentario[index].idPelicula + "'>" +
+            listaComentario[index].pelicula +
+            "</button>" +
+            "</h5>" +
+            "</div>" +
+            "<div id='collapseOne' class='collapse show' aria-labelledby='headingOne' data-parent='#accordion'>" +
+            "<div class='card-body'>" +
+            "<div class='list-group' id='comentariosPelicula" + listaComentario[index].idPelicula + "'>" +
+            "<a  class='list-group-item list-group-item-action flex-column align-items-start'>" +
+            "<div class='d-flex w-100 justify-content-between'>" +
+            "<h5 class='mb-1'>" + listaComentario[index].usuario + "</h5>" +
+            "<div class= 'justify-content-end'>" +
+            "<input type='button' style='margin: 10px'onclick='editarComentario(" + listaComentario[index].idComentario + ")' class='btn btn-warning' value='Editar'></input>" +
+            "<input type='button' class='btn btn-danger' value='Eliminar' onclick='eliminaComentario(" + listaComentario[index].idComentario + ")'></input>" +
+            "  </div> " +
+            "</div>" +
+            "<div name='nameComentarios' id='divTextoComentario" + listaComentario[index].idComentario + "'>" +
+            "<p class='mb-1'>" + listaComentario[index].comentario + "</p>" +
+            "<small><label class='estrellacoment' >" + estrellas + "</label></small>" +
+            "</div>" +
+            "<div id='comentario" + listaComentario[index].idComentario + "'></div>" +
+            "</a>" +
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            "</div>";
+        coment.appendChild(divPelicula);
+    }
 }
-
 
 //boton editar
 function editarComentario(nuComentario) {
@@ -251,7 +269,7 @@ function editarComentario(nuComentario) {
     edit.innerHTML =
         "<form>" +
         "<div class='form-group' id='comentariosEdit'>" +
-        "<label for='exampleInputEmail1'>Comentario</label>" +
+        "<label for='comentarioEdit'>Comentario</label>" +
         "<input type='text' class='form-control' id='comentarioEdit'  placeholder='Escribe lo que piensas'></input>" +
         "<label for='exampleInputEmail1'>Calificación<span style='color: red;'>*</span></label>" +
 
@@ -268,7 +286,7 @@ function editarComentario(nuComentario) {
         "<label class='estrella' for='calValCincoEdit'>★</label>" +
         "</p>" +
         "</div>" +
-        "<button type='submit' class='btn btn-primary'>Actualizar</button>" +
+        "<input type='button' class='btn btn-primary' onClick='actualizaComentario(" + nuComentario + ")' value='Actualizar'></input>" +
         "</form>";
 
     var divTextoComentario = document.getElementById("divTextoComentario" + nuComentario);
@@ -276,4 +294,60 @@ function editarComentario(nuComentario) {
     document.getElementById("comentarioEdit").value = textoComentarioEdit;
     divTextoComentario.innerHTML = "";
 
+}
+
+function actualizaComentario(nuComentario) {
+    var nuevoComentario = document.getElementById("comentarioEdit").value;
+    let nuevaCalificacion = $('input[name="estrellasEdit"]:checked').val();
+
+    let datos = JSON.parse(localStorage.getItem("LC"));
+    let index = datos.findIndex((element) => element.idComentario == nuComentario);
+    let objectComentario = {
+        idComentario: datos[index].idComentario,
+        usuario: datos[index].usuario,
+        idPelicula: datos[index].idPelicula,
+        pelicula: datos[index].peliculaTexto,
+        comentario: nuevoComentario,
+        calificacion: nuevaCalificacion
+    }
+
+    datos.splice(index, 1, objectComentario);
+
+    localStorage.setItem("LC", JSON.stringify(datos));
+
+    limpiarDocumento(nuComentario);
+
+    muestraTodosComentarios();
+
+}
+
+function limpiarDocumento(nuComentario) {
+    var formActualizar = document.getElementById("comentario" + nuComentario);
+    formActualizar.remove();
+
+    let divAcordeon = document.getElementById("accordion");
+    divAcordeon.innerHTML = "";
+}
+
+function eliminaComentario(nuComentario) {
+
+    let datos = JSON.parse(localStorage.getItem("LC"));
+    let index = datos.findIndex((element) => element.idComentario == nuComentario);
+    datos.splice(index, 1);
+    localStorage.setItem("LC", JSON.stringify(datos));
+
+    limpiarDocumento(nuComentario);
+
+    muestraTodosComentarios();
+
+}
+
+function muestraTodosComentarios() {
+    let listaComentario = JSON.parse(localStorage.getItem("LC"));
+   
+    if (listaComentario != null) {
+        listaComentario.forEach((element) => {
+            imprimirComentario(element.idComentario);
+        });
+    }
 }
